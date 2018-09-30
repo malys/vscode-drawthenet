@@ -1,0 +1,353 @@
+{
+  "name": "drawthenet",
+  "displayName": "DrawTheNet",
+  "description": "Rich DrawTheNet support for Visual Studio Code.",
+  "icon": "images/icon.png",
+  "version": "2.9.1",
+  "publisher": "malys",
+  "engines": {
+    "vscode": "^1.17.0"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/qjebbs/vscode-drawthenet/issues"
+  },
+  "homepage": "https://github.com/qjebbs/vscode-drawthenet/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qjebbs/vscode-drawthenet.git"
+  },
+  "categories": [
+    "Programming Languages",
+    "Formatters",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:diagram",
+    "onCommand:drawthenet.exportCurrent",
+    "onCommand:drawthenet.exportDocument",
+    "onCommand:drawthenet.exportWorkspace",
+    "onCommand:drawthenet.preview",
+    "onCommand:drawthenet.URLCurrent",
+    "onCommand:drawthenet.URLDocument",
+    "onCommand:drawthenet.extractSource"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "languages": [
+      {
+        "id": "diagram",
+        "extensions": [
+          ".yaml"
+        ],
+        "aliases": [
+          "Diagram",
+          "drawthenet"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "diagram",
+        "scopeName": "source.wsd",
+        "path": "./syntaxes/diagram.tmLanguage"
+      },
+      {
+        "scopeName": "markdown.drawthenet.codeblock",
+        "path": "./syntaxes/codeblock.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.drawthenet": "javascript"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "drawthenet.exportCurrent",
+        "title": "%drawthenet.exportCurrent.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.exportDocument",
+        "title": "%drawthenet.exportDocument.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.exportWorkspace",
+        "title": "%drawthenet.exportWorkspace.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.preview",
+        "title": "%drawthenet.preview.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.URLCurrent",
+        "title": "%drawthenet.URLCurrent.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.URLDocument",
+        "title": "%drawthenet.URLDocument.title%",
+        "category": "DrawTheNet"
+      },
+      {
+        "command": "drawthenet.extractSource",
+        "title": "%drawthenet.extractSource.title%",
+        "category": "DrawTheNet"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorLangId == diagram",
+          "command": "drawthenet.preview",
+          "group": "DrawTheNet"
+        },
+        {
+          "when": "editorLangId == diagram",
+          "command": "drawthenet.exportCurrent",
+          "group": "DrawTheNet"
+        },
+        {
+          "when": "editorLangId == diagram",
+          "command": "drawthenet.exportDocument",
+          "group": "DrawTheNet"
+        },
+        {
+          "when": "editorLangId == diagram",
+          "command": "drawthenet.URLCurrent",
+          "group": "DrawTheNet"
+        },
+        {
+          "when": "editorLangId == diagram",
+          "command": "drawthenet.URLDocument",
+          "group": "DrawTheNet"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "drawthenet.exportWorkspace",
+          "group": "DrawTheNet"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "drawthenet.preview",
+        "key": "Alt+d"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "diagram",
+        "path": "./snippets/general.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/activity.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/usecase.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/sequence.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/class.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/state.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/component.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/salt.json"
+      },
+      {
+        "language": "diagram",
+        "path": "./snippets/eggs.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "%drawthenet.configuration.configTitle%",
+      "properties": {
+        "drawthenet.exportFormat": {
+          "type": "string",
+          "scope": "resource",
+          "default": "",
+          "enum": [
+            "",
+            "png",
+            "svg",
+            "eps",
+            "pdf",
+            "vdx",
+            "xmi",
+            "scxml",
+            "html",
+            "txt",
+            "utxt",
+            "latex",
+            "latex:nopreamble"
+          ],
+          "description": "%drawthenet.configuration.exportFormat%"
+        },
+        "drawthenet.java": {
+          "type": "string",
+          "default": "java",
+          "description": "%drawthenet.configuration.java%"
+        },
+        "drawthenet.jar": {
+          "type": "string",
+          "scope": "resource",
+          "default": "",
+          "description": "%drawthenet.configuration.jar%"
+        },
+        "drawthenet.fileExtensions": {
+          "type": "string",
+          "scope": "resource",
+          "default": ".wsd,.pu,.puml,.drawthenet,.iuml",
+          "description": "%drawthenet.configuration.fileExtensions%"
+        },
+        "drawthenet.exportSubFolder": {
+          "type": "boolean",
+          "scope": "resource",
+          "default": true,
+          "description": "%drawthenet.configuration.exportSubFolder%"
+        },
+        "drawthenet.exportConcurrency": {
+          "type": "number",
+          "default": 3,
+          "description": "%drawthenet.configuration.exportConcurrency%"
+        },
+        "drawthenet.exportOutDirName": {
+          "type": "string",
+          "scope": "resource",
+          "default": "out",
+          "description": "%drawthenet.configuration.exportOutDirName%"
+        },
+        "drawthenet.exportMapFile": {
+          "type": "boolean",
+          "scope": "resource",
+          "default": false,
+          "description": "%drawthenet.configuration.exportMapFile%"
+        },
+        "drawthenet.previewAutoUpdate": {
+          "type": "boolean",
+          "default": true,
+          "description": "%drawthenet.configuration.previewAutoUpdate%"
+        },
+        "drawthenet.previewSnapIndicators": {
+          "type": "boolean",
+          "default": false,
+          "description": "%drawthenet.configuration.previewSnapIndicators%"
+        },
+        "drawthenet.server": {
+          "type": "string",
+          "default": "http://www.drawthenet.com/drawthenet",
+          "description": "%drawthenet.configuration.server%"
+        },
+        "drawthenet.serverIndexParameter": {
+          "type": "string",
+          "default": "",
+          "description": "Optional index parameter name for multipage diagrams. (e.g. uri?idx=${n})"
+        },
+        "drawthenet.urlFormat": {
+          "type": "string",
+          "default": "",
+          "enum": [
+            "",
+            "png",
+            "svg",
+            "txt"
+          ],
+          "description": "%drawthenet.configuration.urlFormat%"
+        },
+        "drawthenet.urlResult": {
+          "type": "string",
+          "default": "MarkDown",
+          "enum": [
+            "MarkDown",
+            "SimpleURL"
+          ],
+          "description": "%drawthenet.configuration.urlResult%"
+        },
+        "drawthenet.render": {
+          "type": "string",
+          "default": "Local",
+          "enum": [
+            "Local",
+            "DrawTheNetServer"
+          ],
+          "description": "%drawthenet.configuration.render%"
+        },
+        "drawthenet.includes": {
+          "type": "array",
+          "scope": "resource",
+          "default": [],
+          "description": "%drawthenet.configuration.includes%"
+        },
+        "drawthenet.commandArgs": {
+          "type": "array",
+          "default": [],
+          "description": "%drawthenet.configuration.commandArgs%"
+        },
+        "drawthenet.jarArgs": {
+          "type": "array",
+          "default": [],
+          "description": "%drawthenet.configuration.jarArgs%"
+        }
+      }
+    },
+    "markdown.markdownItPlugins": true
+  },
+  "capabilities": {
+    "completionProvider": {
+      "resolveProvider": "true",
+      "triggerCharacters": [
+        ""
+      ]
+    },
+    "signatureHelpProvider": {
+      "triggerCharacters": [
+        "(",
+        ","
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "build": "node ./build.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.40",
+    "js-yaml": "^3.8.3",
+    "markdown-it": "^8.3.2",
+    "mocha": "^2.3.3",
+    "plist": "^2.0.1",
+    "typescript": "^3.0.3",
+    "vscode": "^1.1.10"
+  },
+  "dependencies": {
+    "request": "^2.81.0",
+    "vscode-nls": "^2.0.2",
+    "linq-collections": "*"
+  }
+}

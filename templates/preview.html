@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'nonce-${nonce}';">
+    <link rel="stylesheet" href="${tmplPath}/css/preview.css">
+    <script nonce="${nonce}" src="${tmplPath}/js/dragscroll.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/switcher.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/zoom.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/preview.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/cursor.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/selectionZoom.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/clickEvent.js"></script>
+    <script nonce="${nonce}" src="${tmplPath}/js/tip.js"></script>
+</head>
+
+<body>
+    <div id="snap-indicator-container">
+        <p>
+            <i class="material-icons snap-indicator snap-indicator-top" title="${snapTopTitle}" style="transform:rotate(180deg);">vertical_align_bottom</i>
+            <i class="material-icons snap-indicator snap-indicator-left" title="${snapLeftTitle}" style="transform:rotate(90deg);">vertical_align_bottom</i>
+            <i class="material-icons snap-indicator snap-indicator-bottom" title="${snapBottomTitle}">vertical_align_bottom</i>
+            <i class="material-icons snap-indicator snap-indicator-right" title="${snapRightTitle}" style="transform:rotate(-90deg);">vertical_align_bottom</i>
+        </p>
+    </div>
+    <div id="tip-container" class="fixed-center">
+        <p id="tip"></p>
+    </div>
+    <div id="spinner-container">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+        <div>
+            <span>${processingTip}</span>
+        </div>
+    </div>
+    <div id="image-container" style="margin: 10px;">
+        <img id="image" src="">
+    </div>
+    <div id="ctrl-container">
+        <div id="controls">
+            <button class="btn" id="btnZoomOut">
+                <i class="material-icons">zoom_out</i>
+            </button>
+            <button class="btn" id="btnZoomToggle">
+                <i id="icon-toggle" class="material-icons">fullscreen</i>
+                <!-- <i class="material-icons">fullscreen_exit</i> -->
+            </button>
+            <button class="btn" id="btnZoomIn">
+                <i class="material-icons">zoom_in</i>
+            </button>
+            <div id="page-ctrls">
+                <button class="btn" id="btnPrev">
+                    <i class="material-icons">skip_previous</i>
+                </button>
+                <button class="btn" id="btnNext">
+                    <i class="material-icons">skip_next</i>
+                </button>
+                <span id="pageInfo">${pageInfo}</span>
+            </div>
+        </div>
+    </div>
+    <div id="error-warning">
+        <i class="material-icons">error</i>
+        <div id="errmsg">
+            <p id="errtxt">${error}</p>
+            <img id="image-error" src="${imageError}" style="max-width: 100%;">
+        </div>
+    </div>
+    <div style="display:none;">
+        <div id="images">
+            ${images}
+        </div>
+        <p id="status">${status}</p>
+        <a id="sendStatus" href=""></a>
+        <p id="settings">${settings}</p>
+    </div>
+</body>
+
+</html>

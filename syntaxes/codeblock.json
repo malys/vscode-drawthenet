@@ -1,0 +1,28 @@
+{
+    "fileTypes": [],
+    "injectionSelector": "L:markup.fenced_code.block.markdown",
+    "patterns": [
+        {
+            "include": "#drawthenet-code-block"
+        }
+    ],
+    "repository": {
+        "drawthenet-code-block": {
+            "begin": "drawthenet(\\s+[^`~]*)?$",
+            "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
+            "patterns": [
+                {
+                    "begin": "(^|\\G)(\\s*)(.*)",
+                    "while": "(^|\\G)(?!\\s*([`~]{3,})\\s*$)",
+                    "contentName": "meta.embedded.block.drawthenet",
+                    "patterns": [
+                        {
+                            "include": "source.wsd"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "scopeName": "markdown.drawthenet.codeblock"
+}
