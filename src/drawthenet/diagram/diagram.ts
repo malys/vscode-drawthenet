@@ -2,22 +2,21 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 import * as title from './title';
-import { includer } from './includer';
 import { config } from '../config';
 
 
 export function currentDiagram(): Diagram {
     let editor = vscode.window.activeTextEditor;
-    if (editor) return diagramAt(editor.document, editor.selection.anchor.line);
+    if (editor) return diagramAt(editor.document);
 }
 
 export function diagramAt(document: vscode.TextDocument): Diagram {
     let diagram: Diagram = undefined;
     let content = document.getText();
     diagram = new Diagram(content, document);
-    diagram.dir='./toto.svg'
+    diagram.dir='./diagram.svg'
     
-    return diagram ? includer.addIncludes(diagram) : undefined;
+    return diagram;
 }
 
 export function diagramsOf(document: vscode.TextDocument): Diagram[] {
@@ -60,7 +59,6 @@ export class Diagram {
             this.dir = path.dirname(this.path);
             if (!path.isAbsolute(this.dir)) this.dir = "";
             this.getPageCount();
-            this.getIndex();
             this.getTitle();
         }
     }
@@ -103,11 +101,6 @@ export class Diagram {
                 this.title = this.fileName;
         } else {
             this.title = "Untitled";
-        }
-    }
-    private getIndex() {
-        for (let i = 0; i < this.start.line; i++) {
-            if (diagramStartReg.test(this.document.lineAt(i).text)) this.index++;
         }
     }
 }

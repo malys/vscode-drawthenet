@@ -86,15 +86,13 @@ export class StopWatch {
     }
 }
 export function calculateExportPath(diagram: Diagram, format: string): string {
-    let outDirName = config.exportOutDirName(diagram.parentUri);
-    let subDir = config.exportSubFolder(diagram.parentUri);
     let dir = "";
     let folder = vscode.workspace.getWorkspaceFolder(diagram.parentUri);
     let wkdir = folder ? folder.uri.fsPath : "";
 
     //if current document is in workspace, organize exports in 'out' directory.
     //if not, export beside the document.
-    if (wkdir && isSubPath(diagram.path, wkdir)) dir = path.join(wkdir, outDirName);
+    if (wkdir && isSubPath(diagram.path, wkdir)) dir = wkdir;
 
     let exportDir = diagram.dir;
     if (!path.isAbsolute(exportDir)) return "";
@@ -102,9 +100,7 @@ export function calculateExportPath(diagram: Diagram, format: string): string {
         let temp = path.relative(wkdir, exportDir);
         exportDir = path.join(dir, temp);
     }
-    if (subDir) {
-        exportDir = path.join(exportDir, diagram.fileName);
-    }
+
     return path.join(exportDir, diagram.title + "." + format);
 }
 export function addFileIndex(fileName: string, index: number, count: number): string {

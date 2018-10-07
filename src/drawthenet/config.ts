@@ -7,7 +7,6 @@ import { ConfigReader, ConfigCache } from './configReader';
 import { contextManager } from './context';
 
 export const RenderType = {
-    Local: 'Local',
     DrawTheNetServer: 'DrawTheNetServer'
 };
 
@@ -29,27 +28,6 @@ class Config extends ConfigReader {
         }
         return exts;
     }
-
-    exportOutDirName(uri: vscode.Uri): string {
-        return this.read<string>('exportOutDirName', uri) || "out";
-    }
-
-    exportFormat(uri: vscode.Uri): string {
-        return this.read<string>('exportFormat', uri);
-    }
-
-    exportSubFolder(uri: vscode.Uri): boolean {
-        return this.read<boolean>('exportSubFolder', uri);
-    }
-
-    get exportConcurrency(): number {
-        return this.read<number>('exportConcurrency') || 3;
-    }
-
-    exportMapFile(uri: vscode.Uri): boolean {
-        return this.read<boolean>('exportMapFile', uri) || false;
-    }
-
     get previewAutoUpdate(): boolean {
         return this.read<boolean>('previewAutoUpdate');
     }
@@ -66,14 +44,6 @@ class Config extends ConfigReader {
         return this.read<string>('serverIndexParameter');
     }
 
-    get urlFormat(): string {
-        return this.read<string>('urlFormat');
-    }
-
-    get urlResult(): string {
-        return this.read<string>('urlResult') || "MarkDown";
-    }
-
     get render(): string {
         return this.read<string>('render');
     }
@@ -81,20 +51,7 @@ class Config extends ConfigReader {
     includes(uri: vscode.Uri): string[] {
         return this.read<string[]>('includes', uri);
     }
-    get commandArgs(): string[] {
-        return this.read<string[]>('commandArgs') || [];
-    }
-   
-}
 
-
-function evalPathVar(p: string, uri: vscode.Uri) {
-    if (!p) return "";
-    const workspaceFolder = uri.fsPath;
-    let result = eval('`' + p + '`');
-    if (!path.isAbsolute(result))
-        result = path.join(workspaceFolder, result);
-    return result;
 }
 
 export const config = new Config();

@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as zlib from 'zlib';
 
 import { IRender, RenderTask, RenderError } from './interfaces'
-import { Diagram, diagramStartReg } from '../diagram/diagram';
+import { Diagram } from '../diagram/diagram';
 import { config } from '../config';
 import { localize } from '../common';
 import { addFileIndex } from '../tools';
@@ -122,7 +122,6 @@ class DrawthenetServer implements IRender {
     }
     private parseDrawthenetError(error: DrawthenetServerError, diagram: Diagram): any {
         let fileLine = error.line;
-        if (diagramStartReg.test(diagram.lines[0])) fileLine += 1;
         let blankLineCount = 0;
         for (let i = 1; i < diagram.lines.length; i++) {
             if (diagram.lines[i].trim()) break;

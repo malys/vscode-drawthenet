@@ -17,12 +17,6 @@ export async function makeDocumentURL(all: boolean) {
         vscode.window.showWarningMessage(localize(14, null));
         return;
     }
-
-    let format = config.urlFormat;
-    if (!format) {
-        format = await vscode.window.showQuickPick(drawthenetServer.formats());
-        if (!format) return;
-    }
     let diagrams: Diagram[] = [];
     if (all) {
         diagrams = diagramsOf(editor.document);
@@ -43,15 +37,6 @@ export async function makeDocumentURL(all: boolean) {
     bar.hide();
 
     outputPanel.clear();
-    urls.map(url => {
-        outputPanel.appendLine(url.name);
-        if (config.urlResult == "MarkDown") {
-            outputPanel.appendLine(`\n![${url.name}](${url.url} "${url.name}")`);
-        } else {
-            outputPanel.appendLine(url.url);
-        }
-        outputPanel.appendLine("");
-    });
     outputPanel.show();
 
     return urls;
